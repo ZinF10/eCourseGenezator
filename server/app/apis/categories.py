@@ -1,15 +1,14 @@
 from flask_restx import Resource
 
 from core import dao
-from .dto import CategoryDto
+from .dto import CategoryDTO
 
-api = CategoryDto.api
-model = CategoryDto.category
-
+api = CategoryDTO.api
+model = CategoryDTO.model
 
 @api.route('/')
 class CategoryList(Resource):
-    @api.marshal_with(model, code=200, as_list=True)
+    @api.marshal_with(model, code=200)
     def get(self):
         """ Get all categories """
         return dao.load_categories()

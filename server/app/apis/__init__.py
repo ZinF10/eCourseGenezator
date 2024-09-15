@@ -1,6 +1,7 @@
 from flask_restx import Api
 
 from .categories import api as category_ns
+from .dto import BaseDTO
 
 
 api = Api(
@@ -13,4 +14,5 @@ api = Api(
     ordered=True
 )
 
+api.add_namespace(BaseDTO.api)
 api.add_namespace(category_ns)
