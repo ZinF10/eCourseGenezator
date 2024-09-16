@@ -19,6 +19,15 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
+class TestingConfig(Config):
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'database', 'ecourse_test.db')
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
 config_by_name = dict(
-    dev=DevelopmentConfig
+    dev=DevelopmentConfig,
+    test=TestingConfig,
 )

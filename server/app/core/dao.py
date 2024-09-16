@@ -1,8 +1,16 @@
-from .models import Category, User
+from .models import Category, User, Course
 
 
 def load_categories():
-    return Category.query.all()
+    return Category.query.filter(Category.is_active.__eq__(True)).order_by(Category.id.desc()).all()
+
+
+def load_courses():
+    return Course.query.filter(Course.is_active.__eq__(True)).order_by(Course.id.desc()).all()
+
+
+def load_course(course_id):
+    return Course.query.get_or_404(int(course_id))
 
 
 def fetch_user(id):

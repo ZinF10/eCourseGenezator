@@ -20,7 +20,8 @@ class BaseModel(db.Model):
     
 class Category(BaseModel):
     name = db.Column(db.String(50), unique=True)
-
+    courses = db.relationship('Course', backref='category', lazy=True)
+    
     def __str__(self):
         return self.name
     
@@ -43,3 +44,30 @@ class User(BaseModel, UserMixin):
 
     def __str__(self):
         return self.username
+    
+    
+class Course(BaseModel):
+    subject = db.Column(db.String(100), unique=True, nullable=False)
+    description = db.Column(db.Text)
+    image = db.Column(db.String(255), default=None)
+    price = db.Column(db.Float, default=0.00)
+    category_id = db.Column(db.Integer, db.ForeignKey(Category.id), nullable=False)
+    tags = db.relationship('Tag', secondary='course_tag', backref='courses')
+    
+    def __str__(self):
+        return self.subject
+    
+    
+class Tag(BaseModel):
+    name = db.Column(db.String(80), unique=True)
+
+    def __str__(self):
+        return f"#{self.name}"
+    
+
+course_tag = db.Table('course_tag',
+                      db.Column('course_id', db.Integer, db.ForeignKey(
+                          Course.id), nullable=False),
+                      db.Column('tag_id', db.Integer, db.ForeignKey(
+                          Tag.id), nullable=False)
+                      )

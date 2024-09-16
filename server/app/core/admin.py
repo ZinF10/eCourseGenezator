@@ -2,7 +2,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form import SecureForm
 
-from .models import db, Category
+from .models import db, Category, Course
 from .config import Config
 
 class BaseModelView(ModelView):
@@ -28,5 +28,12 @@ class CategoryAdmin(BaseModelView):
     column_editable_list = ["name"] + BaseModelView.column_editable_list
 
 
+class CourseAdmin(BaseModelView):
+    column_list = ["subject"] + BaseModelView.column_list
+    column_sortable_list = ["subject"] + BaseModelView.column_sortable_list
+    column_editable_list = ["subject"] + BaseModelView.column_editable_list
+
+
 admin_manager = Admin(name="eCourse 🎓", template_mode='bootstrap4')
 admin_manager.add_view(CategoryAdmin(Category, db.session, category="Management"))
+admin_manager.add_view(CourseAdmin(Course, db.session, category="Management"))

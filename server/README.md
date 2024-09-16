@@ -66,6 +66,12 @@ CLI Runserver
 py manage.py run --debug
 ```
 
+Testing
+
+```bash
+py manage.py test
+```
+
 ## Author
 
 Copyright &copy; 2024 by [ZIN](http://www.github.com/ZinF10)

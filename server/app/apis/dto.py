@@ -16,3 +16,11 @@ class CategoryDTO(BaseDTO):
     model = api.inherit('Category', BaseDTO.model, {
         'name': fields.String,
     })
+    
+
+class CourseDTO(BaseDTO):
+    """Course Data Transfer Object."""
+    api = Namespace('courses', description='Course related operations')
+    model = api.inherit('Course', BaseDTO.model, {
+        'subject': fields.String,
+    })
