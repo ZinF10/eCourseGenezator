@@ -1,5 +1,6 @@
-from flask import Flask, request, flash, redirect, url_for
+from flask import Flask
 from flask_bcrypt import Bcrypt
+from flask_cors import CORS
 from flask_login import LoginManager
 
 from apis import api
@@ -16,6 +17,7 @@ login_manager = LoginManager()
 def create_app(config_name: str) -> Flask:
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
+    CORS(app=app, resources={r"/*": {"origins": "*"}})
     
     db.init_app(app=app)
     api.init_app(app=app)

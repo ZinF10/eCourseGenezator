@@ -23,4 +23,5 @@ class CourseDTO(BaseDTO):
     api = Namespace('courses', description='Course related operations')
     model = api.inherit('Course', BaseDTO.model, {
         'subject': fields.String,
+        'price': fields.Float,
     })

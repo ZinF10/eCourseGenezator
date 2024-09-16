@@ -23,13 +23,13 @@ class BaseModelView(ModelView):
 
 
 class CategoryAdmin(BaseModelView):
-    column_list = ["name"] + BaseModelView.column_list
+    column_list = ["name", "courses"] + BaseModelView.column_list
     column_sortable_list = ["name"] + BaseModelView.column_sortable_list
     column_editable_list = ["name"] + BaseModelView.column_editable_list
 
 
 class CourseAdmin(BaseModelView):
-    column_list = ["subject"] + BaseModelView.column_list
+    column_list = ["subject", "category"] + BaseModelView.column_list
     column_sortable_list = ["subject"] + BaseModelView.column_sortable_list
     column_editable_list = ["subject"] + BaseModelView.column_editable_list
 
