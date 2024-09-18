@@ -7,6 +7,7 @@ api = CourseDTO.api
 model = CourseDTO.model
 details = CourseDTO.details
 parser = CourseDTO.parser
+pagination = CourseDTO.pagination
 
 @api.route('/')
 class CourseList(Resource):
@@ -15,14 +16,23 @@ class CourseList(Resource):
         'keyword': 'Keyword to search for',
         'from_price': 'Minimum price',
         'to_price': 'Maximum price',
+        'page': 'Page number for pagination'
     }, security="jwt")
     @api.expect(parser)
-    @api.marshal_with(model, code=200, envelope="results", as_list=True)
+    @api.marshal_with(pagination, code=200)
     @api.doc('list_courses')
     def get(self):
         """ Get all courses """
         args = parser.parse_args()
-        return dao.load_courses(**args)
+        data = dao.load_courses(**args)
+        response = {
+            'count': data['count'],
+            'next': data['next_page'],
+            'previous': data['prev_page'],
+            'results': data['results'],
+        }
+        print(response)
+        return response
     
     
 @api.route('/<int:id>')

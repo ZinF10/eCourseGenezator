@@ -29,8 +29,15 @@ class CourseDTO(BaseDTO):
     details = api.inherit('Course Details', model, {
         'description': fields.String(required=True, description='Course description')
     })
+    pagination = api.model('Pagination', {
+        'count': fields.Integer(description='Total of courses'),
+        'next': fields.Integer(description='Next page number'),
+        'previous': fields.Integer(description='Previous page number'),
+        'results': fields.List(fields.Nested(model), description='List of courses'),
+    })
     parser = reqparse.RequestParser(bundle_errors=True)
     parser.add_argument('category', type=int, required=False, help='Category ID')
     parser.add_argument('keyword', type=str, required=False, help='Search keyword')
     parser.add_argument('from_price', type=float, required=False, help='Minimum price')
     parser.add_argument('to_price', type=float, required=False, help='Maximum price')
+    parser.add_argument('page', type=int, required=False, default=1, help='Page number')
