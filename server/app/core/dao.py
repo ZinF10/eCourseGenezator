@@ -5,8 +5,22 @@ def load_categories():
     return Category.query.filter(Category.is_active.__eq__(True)).order_by(Category.id.desc()).all()
 
 
-def load_courses():
-    return Course.query.filter(Course.is_active.__eq__(True)).order_by(Course.id.desc()).all()
+def load_courses(category=None, keyword=None, from_price=None, to_price=None, **kwargs):
+    query = Course.query.filter(Course.is_active.__eq__(True))
+    
+    if keyword:
+        query = query.filter(Course.subject.ilike(f'%{keyword}%'))
+        
+    if category:
+        query = query.filter(Course.category_id.__eq__(category))
+        
+    if from_price:
+        query = query.filter(Course.price.__ge__(from_price))
+        
+    if to_price:
+        query = query.filter(Course.price.__le__(to_price))
+        
+    return query.order_by(Course.id.desc()).all()
 
 
 def load_course(course_id):
