@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchAPIs } from "../services/requests";
 
-const useApi = (url) => {
+const useApi = (url, page) => {
     const { isLoading, isError, data = [], error } = useQuery({
-        queryKey: [url],
+        queryKey: [url, page],
         queryFn: fetchAPIs,
     });
 

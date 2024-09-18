@@ -10,7 +10,7 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', secrets.token_hex(32))
     DEBUG = False
     FLASK_ADMIN_SWATCH = 'lux'
-    PAGE_SIZE = 10
+    PAGE_SIZE = 1
 
 
 class DevelopmentConfig(Config):
